@@ -8,7 +8,7 @@ function Game (n) {
         this.answer = [];
         this.guesses =[];
         this.feedback = [];
-        this.win = false;
+        this.win = '';
 
         while (this.answer.length < this.n_digits) {
             rand = Math.floor(Math.random() * 10);  //random digits from 0-9 
@@ -37,6 +37,9 @@ function Game (n) {
     this.feedback.push([place_hits, digit_hits]); 
     };
 
+    this.saveGame = function() {   
+    }
+
     this.validateGuess = function(guess) {
         // length = n_digits and consists of only digits
         return (guess.length == this.n_digits && /^\d+$/.test(guess));
@@ -56,48 +59,54 @@ function Game (n) {
             return parseInt(item, 10);
         });
     }
+
 } // end of Game()
 
 var currGame = new Game(4);
 
-$(document).ready(function() {
-    $('#newbutton').click(function() {        
-        currGame.newGame();
-        console.log(currGame.answer);
+$(document).ready(function() {       
+    currGame.newGame();
+    $("#hist").append("New game is ready to play!<br/>");
 
-    });
-    
-    $('#submitbutton').click(function() {
-        
+    $('#submitbutton').click(function() {    
         //got text from submit
         //replace any non-Digit characters (commas, white spaces etc) with empty string
         var guess = $("#guesstext").val().replace(/[\D]+/g, '');
         $("#guesstext").val('');
 
         if (!currGame.validateGuess(guess)) {
-            alert("That is not a valid guess. Try again!");
+            alert("The passcode has four digits. Try again!");
         }
         else {
             //submit the guess in array form and get feedback
             var lastfb = currGame.submitGuess(currGame.toArrayGuess(guess));
             //append last feedback
             $("#hist").append("Guess #" + (currGame.n_guesses) + ": " + guess);
-            $("#hist").append("----" + lastfb[0] + " As " + " and " + lastfb[1] + " Bs correctly. <br/>");
+            $("#hist").append(" ---- " + lastfb[0] + " As " + " and " + lastfb[1] + " Bs correctly. <br/>");
 
-            //test if win already.
+            //win?
             if (lastfb[0] === currGame.n_digits) {
-                this.win = true;
+                currGame.win = true;
                 $("#hist").append("Congratulations! You win! <br/>");
+                alert("Congratulations! You win!");
                 //TODO: save this game record somewhere
+                currGame.newGame();
+                $("#hist").append("New game is ready to play!<br/>");
             }
             else {
                 //check if used up all guesses
                 if (currGame.n_guesses === currGame.maxtry) {
                     alert("Game Over! You lost.");
-                }
+                    currGame.win = false;
+                    // save this record
+                    currGame.newGame();
+                    $("#hist").append("New game is ready to play!<br/>");
+                }        
             }
             
+        
         }
+        
     });
 });
 

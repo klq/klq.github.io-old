@@ -18,3 +18,7 @@ button {
     background-color: #F38630;
     border-radius: 5px;
 }
+
+#intro {
+    font: arial;
+}
