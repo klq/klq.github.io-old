@@ -10,6 +10,19 @@
     font: arial;
 }
 
+.box {
+    height: 50px;
+    width: 50px;
+    display: inline-block;
+    background-color: #A7DBD8;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 10 px;
+    color: #FFFFFF;
+    font: arial;
+
+}
+
 
 button {
     height: 50px;

@@ -62,11 +62,27 @@ function Game (n) {
 
 } // end of Game()
 
-var currGame = new Game(4);
+function genGame (game) {
+    game.newGame();
+    $("sum").append("New Game is ready to play! <br/>");
+}
 
-$(document).ready(function() {       
-    currGame.newGame();
-    $("#hist").append("New game is ready to play!<br/>");
+function recordText (w,l) {
+    text = "Your Record: ";
+    text += w.toString();
+    text += " / ";
+    text += (w+l).toString();
+    text += " games. <br/>"
+    return text;
+
+}
+
+var currGame = new Game(4);
+var total_win = 0;
+var total_lose = 0;
+
+$(document).ready(function() { 
+    genGame(currGame);
 
     $('#submitbutton').click(function() {    
         //got text from submit
@@ -87,20 +103,24 @@ $(document).ready(function() {
             //win?
             if (lastfb[0] === currGame.n_digits) {
                 currGame.win = true;
-                $("#hist").append("Congratulations! You win! <br/>");
+                $("#sum").append("Congratulations! You win! <br/>");
                 alert("Congratulations! You win!");
                 //TODO: save this game record somewhere
-                currGame.newGame();
-                $("#hist").append("New game is ready to play!<br/>");
+
+                total_win += 1;
+                $("#hist").append(recordText(total_win,total_lose));
+
+                genGame(currGame);
             }
             else {
                 //check if used up all guesses
                 if (currGame.n_guesses === currGame.maxtry) {
                     alert("Game Over! You lost.");
                     currGame.win = false;
+                    total_lose += 1;
+                    $("#hist").append(recordText(total_win,total_lose));
                     // save this record
-                    currGame.newGame();
-                    $("#hist").append("New game is ready to play!<br/>");
+                    genGame(currGame);
                 }        
             }
             
@@ -108,6 +128,11 @@ $(document).ready(function() {
         }
         
     });
+
+    $("#guesstext").blur(function() {
+        this.focus();
+    });
+
 });
 
 // TODO
