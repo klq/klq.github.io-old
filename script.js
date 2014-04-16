@@ -65,14 +65,13 @@ function Game (n) {
 function genGame (game) {
     game.newGame();
     $("#sum").append("New Game is ready to play! <br/>");
+    console.log(currGame.answer);
 }
 
 function recordText (w,l) {
-    text = "Your Record: ";
-    text += w.toString();
-    text += " / ";
+    text = w.toString();
+    text += "/";
     text += (w+l).toString();
-    text += "  <br/>"
     return text;
 
 }
@@ -89,7 +88,6 @@ function recordText (w,l) {
 // }
 
 function submitAnswer() {
-
     //got text from submit
     //replace any non-Digit characters (commas, white spaces etc) with empty string
     var guess = $("#guesstext").val().replace(/[\D]+/g, '');
@@ -99,6 +97,10 @@ function submitAnswer() {
         alert("The passcode has four digits. Try again!");
     }
     else {
+        if (currGame.n_guesses === 0 ) {
+            $('#sum').html('');
+        }
+
         //submit the guess in array form and get feedback
         var lastfb = currGame.submitGuess(currGame.toArrayGuess(guess));
         //append last feedback
@@ -113,7 +115,7 @@ function submitAnswer() {
             //TODO: save this game record somewhere
 
             total_win += 1;
-            $("#hist").replaceWith(recordText(total_win,total_lose));
+            $(".record-container").html(recordText(total_win,total_lose));
 
             genGame(currGame);
         }
@@ -123,7 +125,7 @@ function submitAnswer() {
                 alert("Game Over! You lost.");
                 currGame.win = false;
                 total_lose += 1;
-                $("#hist").replaceWith(recordText(total_win,total_lose));
+                $(".record-container").html(recordText(total_win,total_lose));
                 // save this record
                 genGame(currGame);
             }        

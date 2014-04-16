@@ -8,14 +8,6 @@ html, body {
   font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
   font-size: 16px; }
 
-button {
-    height: 50px;
-    width: 100px;
-    display: inline-block;
-    background-color: #F38630;
-    border-radius: 5px;
-}
-
 .container {
   width: 800px;
   margin: 0 auto; }
@@ -71,3 +63,37 @@ button {
 
 .record-container:after {
   content: "Record"; }
+
+.intro {
+  float: left;
+  line-height: 42px;
+  margin-bottom: 0; }
+
+
+#submitbutton {
+  display: block;
+  background: #8f7a66;
+  border-radius: 3px;
+  padding: 0 20px;
+  text-decoration: none;
+  font-weight: bold;
+  color: #f9f6f2;
+  height: 40px;
+  line-height: 42px;
+  display: block;
+  text-align: center;
+  float: center;
+  cursor: pointer; 
+  width: 20%;  
+  box-sizing: border-box;
+  margin-top: 2px;}
+
+textarea {
+    border-radius: 3px;
+    color: #776e65;
+    font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
+    font-size: 14px;
+}
+
+strong.important {
+  text-transform: uppercase; }
