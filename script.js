@@ -65,7 +65,6 @@ function Game (n) {
 function genGame (game) {
     game.newGame();
     $("#sum").append("New Game is ready to play! <br/>");
-    console.log(currGame.answer);
 }
 
 function recordText (w,l) {
