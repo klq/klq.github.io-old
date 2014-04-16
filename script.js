@@ -109,11 +109,18 @@ function submitAnswer() {
         //win?
         if (lastfb[0] === currGame.n_digits) {
             currGame.win = true;
+            score = getScore();
+            if (score > best_score) {
+                best_score = score;
+            }
+            total_win += 1;
+            
+            //TODO: save this game record somewhere
             $("#sum").append("Congratulations! You win! <br/>");
             alert("Congratulations! You win!");
-            //TODO: save this game record somewhere
 
-            total_win += 1;
+            $(".score-container").html(score);
+            $(".best-container").html(best_score);
             $(".record-container").html(recordText(total_win,total_lose));
 
             genGame(currGame);
@@ -134,10 +141,28 @@ function submitAnswer() {
 }
 
 
+function getScore() {
+    guess = currGame.n_guesses;
+    switch (guess) {
+        case 1:  return 10; 
+        case 2:  return 9;
+        case 3:  return 8;
+        case 4:  return 7;
+        case 5:  return 6;
+        case 6:  return 5;
+        case 7:  return 4;
+        case 8:  return 3;
+        case 9:  return 2;
+        case 10: return 1;
+        default: return -1;
+    }
+}
 
 var currGame = new Game(4);
 var total_win = 0;
 var total_lose = 0;
+var best_score = 0;
+var score = 0;
 
 $(document).ready(function() { 
     genGame(currGame);
@@ -160,48 +185,6 @@ $(document).ready(function() {
 
 // TODO
 //Add some session logs to keep track of the win-lose records of a user
-
-
-
-/*
-
-var game_answer = new_game(4);
-console.log(game_answer);
-var guesses = 0;
-var win = false;
-
-while (guesses < 3) {
-    var guess = prompt("Enter four digits from 0-9, separated by comma: \n");
-    guess = guess.split(",").map(function(item) {
-        return parseInt(item, 10);
-    });
-
-    console.log(guess);
-
-    var feedback = get_feedback(game_answer, guess);
-
-    if (feedback[0] === 4) {
-        win = true;
-        alert("Congratulations! You win!!!");
-        break;
-          
-    }
-
-    else {
-        var str = "You got " + feedback[0] + " As and " + feedback[1] + " Bs correctly. ";
-        alert(str);
-
-        guesses += 1;
-        
-    }
-}
-
-if (!win) {
-    var failstr = "Time's up! You failed!!! Loser is at Loserville......";
-    alert(failstr);
-
-}
-*/
 
 
 
