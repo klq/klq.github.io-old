@@ -72,10 +72,67 @@ function recordText (w,l) {
     text += w.toString();
     text += " / ";
     text += (w+l).toString();
-    text += " games. <br/>"
+    text += "  <br/>"
     return text;
 
 }
+
+
+
+// function detectEnter(id,e) {
+//     $(id).keypress (function(e) {
+//         var code = e.keyCode ? e.keyCode : e.which;
+//         if (code == 13) {
+//            return true;
+//         }
+//     });
+// }
+
+function submitAnswer() {
+
+    //got text from submit
+    //replace any non-Digit characters (commas, white spaces etc) with empty string
+    var guess = $("#guesstext").val().replace(/[\D]+/g, '');
+    $("#guesstext").val('');
+
+    if (!currGame.validateGuess(guess)) {
+        alert("The passcode has four digits. Try again!");
+    }
+    else {
+        //submit the guess in array form and get feedback
+        var lastfb = currGame.submitGuess(currGame.toArrayGuess(guess));
+        //append last feedback
+        $("#sum").append("Guess #" + (currGame.n_guesses) + ": " + guess);
+        $("#sum").append(" ---- " + lastfb[0] + "A" + lastfb[1] + "B <br/>");
+
+        //win?
+        if (lastfb[0] === currGame.n_digits) {
+            currGame.win = true;
+            $("#sum").append("Congratulations! You win! <br/>");
+            alert("Congratulations! You win!");
+            //TODO: save this game record somewhere
+
+            total_win += 1;
+            $("#hist").replaceWith(recordText(total_win,total_lose));
+
+            genGame(currGame);
+        }
+        else {
+            //check if used up all guesses
+            if (currGame.n_guesses === currGame.maxtry) {
+                alert("Game Over! You lost.");
+                currGame.win = false;
+                total_lose += 1;
+                $("#hist").replaceWith(recordText(total_win,total_lose));
+                // save this record
+                genGame(currGame);
+            }        
+        }
+        
+    }
+}
+
+
 
 var currGame = new Game(4);
 var total_win = 0;
@@ -84,50 +141,15 @@ var total_lose = 0;
 $(document).ready(function() { 
     genGame(currGame);
 
-    $('#submitbutton').click(function() {    
-        //got text from submit
-        //replace any non-Digit characters (commas, white spaces etc) with empty string
-        var guess = $("#guesstext").val().replace(/[\D]+/g, '');
-        $("#guesstext").val('');
-
-        if (!currGame.validateGuess(guess)) {
-            alert("The passcode has four digits. Try again!");
+    $('#guesstext').keypress (function(e) {
+        var code = e.keyCode ? e.keyCode : e.which;
+        if (code == 13) {
+           submitAnswer();
+           e.preventDefault();
         }
-        else {
-            //submit the guess in array form and get feedback
-            var lastfb = currGame.submitGuess(currGame.toArrayGuess(guess));
-            //append last feedback
-            $("#hist").append("Guess #" + (currGame.n_guesses) + ": " + guess);
-            $("#hist").append(" ---- " + lastfb[0] + " As " + " and " + lastfb[1] + " Bs correctly. <br/>");
-
-            //win?
-            if (lastfb[0] === currGame.n_digits) {
-                currGame.win = true;
-                $("#sum").append("Congratulations! You win! <br/>");
-                alert("Congratulations! You win!");
-                //TODO: save this game record somewhere
-
-                total_win += 1;
-                $("#hist").append(recordText(total_win,total_lose));
-
-                genGame(currGame);
-            }
-            else {
-                //check if used up all guesses
-                if (currGame.n_guesses === currGame.maxtry) {
-                    alert("Game Over! You lost.");
-                    currGame.win = false;
-                    total_lose += 1;
-                    $("#hist").append(recordText(total_win,total_lose));
-                    // save this record
-                    genGame(currGame);
-                }        
-            }
-            
-        
-        }
-        
     });
+
+    $('#submitbutton').click(submitAnswer);
 
     $("#guesstext").blur(function() {
         this.focus();

@@ -1,27 +1,21 @@
-.digit {
-    height: 50px;
-    width: 50px;
-    display: inline-block;
-    background-color: #A7DBD8;
-    border-radius: 5px;
-    text-align: center;
-    font-size: 40 px;
-    color: #000000;
-    font: arial;
-}
+@import url(fonts/clear-sans.css);
 
-.box {
-    height: 50px;
-    width: 50px;
-    display: inline-block;
-    background-color: #A7DBD8;
-    border-radius: 5px;
-    text-align: center;
-    font-size: 10 px;
-    color: #FFFFFF;
-    font: arial;
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #faf8ef;
+  color: #776e65;
+  font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px; }
 
-}
+.score-container:after {
+  content: "Score"; }
+
+.best-container:after {
+  content: "Best"; }
+
+.record-container:after {
+  content: "Hist"; }
 
 
 button {
@@ -32,6 +26,4 @@ button {
     border-radius: 5px;
 }
 
-#intro {
-    font: arial;
-}
+

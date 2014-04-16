@@ -2,6 +2,7 @@
 <html>
     <head>
     <title>Crack the code!!!</title>
+    <link rel="shortcut icon" href="favicon.ico">
     <link rel='stylesheet' type='text/css' href='stylesheet.css'/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
@@ -10,43 +11,40 @@
 
 
     <body>
-        <p></p>
-        <div id="intro">
-            <br/>You are walking in the woods....
-            <br/>....
-            <br/>Suddenly a troll appeared....
-            <br/>....
-            <br/>You jumped on the troll and weld your sword.....
-            <br/>....
-            <br/>You cut off the troll's head......
-            <br/>....
-            <br/>A small golden chest fell off the troll.....
-            <br/>....
-            <br/>The chest has a four-digit combination code.....
-            <br/>....
-            <br/>....
-            <br/>....
-            <br/>You want to open the chest....
-            <br/>You have only 10 trys, after which the chest will explode
-            <br/>
-            <br/>
-            <br/>Good Luck!
-
-
+        <div class="heading">
+            <div class="scores-container">
+                <div class="score-container">0</div>
+                <div class="best-container">0</div>
+                <div class="record-container" id="hist">0/0</div>
+            </div>
         </div>
-        <div id="hist"> </div>
-        <div id="sum"> </div>
-        <br/>
-<!--         <div class="box"></div>
-        <div class="box"></div> 
-        <div class="box"></div>
-        <div class="box"></div> -->
-        <br/>
-
-        <textarea id="guesstext" name="myTextBox" cols="50" rows="5" placeholder = "Enter your guess here...(four 0-9 digits)"></textarea>
         
-        <br/><button id="submitbutton">SUBMIT</button>
+        <div class="above-game">
+            <br>The secret password to the treasure is a non-repeating four digit code.
+            <br>You have 10 guesses to crack the code and find the treasure.
+            <br>
+            <br>Here's some help:
+            <br>After each guess, the lock will tell you how well you did.
+            <br>A: correct digit in the correct spot. Way to go!
+            <br>B: correct digit in an incorrect spot. You are so close.
+            <br>
+            <br>After 10 wrong guesses, the vault will self-destruct and you lose the treasure.
+            <br>
+            <br>Good Luck!
+        </div>
 
+        <div class="game-container">
+            <div id="sum"> </div>
+            <div id="fb"> </div>           
+            <br>
+            <br>
+            <textarea id="guesstext" name="myTextBox" cols="50" rows="5" placeholder = "Enter your guess here...(four 0-9 digits)"></textarea>
+            <br>
+            <button id="submitbutton">SUBMIT</button>
+        </div>
+
+        <div class="below-game">
+        </div>
         
     </body>
 </html>
