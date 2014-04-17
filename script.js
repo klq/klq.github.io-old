@@ -65,6 +65,7 @@ function Game (n) {
 function genGame (game) {
     game.newGame();
     $("#sum").append("New Game is ready to play! <br/>");
+    console.log(currGame.answer);
 }
 
 function recordText (w,l) {
@@ -109,17 +110,18 @@ function submitAnswer() {
         //win?
         if (lastfb[0] === currGame.n_digits) {
             currGame.win = true;
-            score = getScore();
-            if (score > best_score) {
-                best_score = score;
+            curr_score = getScore();
+            if (curr_score > best_score) {
+                best_score = curr_score;
             }
+            total_score += curr_score;
             total_win += 1;
             
             //TODO: save this game record somewhere
             $("#sum").append("Congratulations! You win! <br/>");
             alert("Congratulations! You win!");
 
-            $(".score-container").html(score);
+            $(".score-container").html(total_score);
             $(".best-container").html(best_score);
             $(".record-container").html(recordText(total_win,total_lose));
 
@@ -162,7 +164,8 @@ var currGame = new Game(4);
 var total_win = 0;
 var total_lose = 0;
 var best_score = 0;
-var score = 0;
+var total_score = 0;
+var curr_score = 0;
 
 $(document).ready(function() { 
     genGame(currGame);

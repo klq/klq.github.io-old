@@ -9,12 +9,20 @@ html, body {
   font-size: 16px; }
 
 .container {
-  width: 800px;
+  width: 600px;
   margin: 0 auto; }
+
+.heading {
+    overflow: hidden;
+}
+
+.heading h1{
+    float:left;
+}
 
 .scores-container {
   float: right;
-  text-align: right; }
+}
 
 .score-container, .best-container, .record-container {
   position: relative;
@@ -38,8 +46,8 @@ html, body {
     font-size: 13px;
     line-height: 13px;
     text-align: center;
-    color: #eee4da; }
-  .score-container .score-addition, .best-container .score-addition, .record-container .record-addition {
+    color: #eee4da;}
+/*  .score-container .score-addition, .best-container .score-addition, .record-container .record-addition {
     position: absolute;
     right: 30px;
     color: red;
@@ -53,7 +61,7 @@ html, body {
     animation: move-up 600ms ease-in;
     -webkit-animation-fill-mode: both;
     -moz-animation-fill-mode: both;
-    animation-fill-mode: both; }
+    animation-fill-mode: both; }*/
 
 .score-container:after {
   content: "Score"; }
@@ -65,7 +73,7 @@ html, body {
   content: "Record"; }
 
 .intro {
-  float: left;
+/*  float: left;*/
   margin-bottom: 0; }
 
 
