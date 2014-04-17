@@ -65,7 +65,7 @@ function Game (n) {
 function genGame (game) {
     game.newGame();
     $("#sum").append("New Game is ready to play! <br/>");
-    console.log(currGame.answer);
+    // console.log(currGame.answer);
 }
 
 function recordText (w,l) {
@@ -75,8 +75,6 @@ function recordText (w,l) {
     return text;
 
 }
-
-
 
 // function detectEnter(id,e) {
 //     $(id).keypress (function(e) {
